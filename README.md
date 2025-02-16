@@ -1,5 +1,7 @@
 # Scoreboards Watch App
 
+![Demo](docs/demo.gif)
+
 Scoreboards Watch App is a simple watchOS application that allows users to keep track of scores for two teams. The app provides an intuitive interface to increment and decrement scores and reset them when needed.
 
 ## Features
@@ -17,13 +19,13 @@ Scoreboards Watch App is a simple watchOS application that allows users to keep 
 ## Installation
 
 1. Clone the repository:
-    ```sh
-    git clone https://github.com/yourusername/scoreboards-watch-app.git
-    ```
+   ```sh
+   git clone https://github.com/yourusername/scoreboards-watch-app.git
+   ```
 2. Open the project in Xcode:
-    ```sh
-    open Scoreboards.xcodeproj
-    ```
+   ```sh
+   open Scoreboards.xcodeproj
+   ```
 3. Build and run the app on your watchOS simulator or device.
 
 ## Usage
