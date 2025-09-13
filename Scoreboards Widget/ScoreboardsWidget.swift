@@ -38,7 +38,7 @@ struct ScoreboardsWidgetEntryView : View {
         ZStack {
             switch family {
             case .accessoryCircular:
-                // Circular complication - show app icon
+                // Circular complication - 110px source image
                 Image("app-icon")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -46,33 +46,16 @@ struct ScoreboardsWidgetEntryView : View {
                     .clipShape(Circle())
                     
             case .accessoryCorner:
-                // Corner complication - smaller app icon
-                Image("app-icon")
+                // Corner complication - 80px source image
+                Image("app-icon-small")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
                     
-            case .accessoryInline:
-                // Inline complication - app icon with text
-                HStack(spacing: 4) {
-                    Image("app-icon")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 16, height: 16)
-                        .clipShape(RoundedRectangle(cornerRadius: 2))
-                    Text("Scoreboards")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(.white)
-                }
-                
             default:
-                // Fallback for other sizes
-                Image("app-icon")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 24, height: 24)
-                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                // Not supported - show nothing or minimal fallback
+                EmptyView()
             }
         }
         .widgetURL(URL(string: "scoreboards://open"))
@@ -91,7 +74,7 @@ struct ScoreboardsWidget: Widget {
         }
         .configurationDisplayName("Scoreboards")
         .description("Quick access to your Scoreboards app")
-        .supportedFamilies([.accessoryCircular, .accessoryCorner, .accessoryInline])
+        .supportedFamilies([.accessoryCircular, .accessoryCorner])
     }
 }
 
@@ -102,12 +85,6 @@ struct ScoreboardsWidget: Widget {
 }
 
 #Preview("Corner", as: .accessoryCorner) {
-    ScoreboardsWidget()
-} timeline: {
-    SimpleEntry(date: Date())
-}
-
-#Preview("Inline", as: .accessoryInline) {
     ScoreboardsWidget()
 } timeline: {
     SimpleEntry(date: Date())
