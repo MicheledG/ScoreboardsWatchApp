@@ -12,6 +12,13 @@ struct Scoreboards_Watch_AppApp: App {
     var body: some Scene {
         WindowGroup {
             ScoreboardsView()
+                .onOpenURL { url in
+                    // Handle the URL from the widget
+                    if url.scheme == "scoreboards" && url.host == "open" {
+                        // The app is already opening, no additional action needed
+                        print("App opened from widget")
+                    }
+                }
         }
     }
 }

@@ -7,10 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF6EC1E02E75C078001CD8D5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6EC1DF2E75C078001CD8D5 /* WidgetKit.framework */; };
+		CF6EC1E22E75C078001CD8D5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6EC1E12E75C078001CD8D5 /* SwiftUI.framework */; };
+		CF6EC1ED2E75C07A001CD8D5 /* Scoreboards WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CF6EC1DD2E75C078001CD8D5 /* Scoreboards WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CFBB43132D4EC37D009F084B /* Scoreboards Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CFBB43122D4EC37D009F084B /* Scoreboards Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CF6EC1EB2E75C07A001CD8D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CFBB43062D4EC37D009F084B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CF6EC1DC2E75C078001CD8D5;
+			remoteInfo = "Scoreboards WidgetExtension";
+		};
 		CFBB43142D4EC37D009F084B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CFBB43062D4EC37D009F084B /* Project object */;
@@ -21,6 +31,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		CF6EC1EE2E75C07A001CD8D5 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CF6EC1ED2E75C07A001CD8D5 /* Scoreboards WidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CFBB43252D4EC37F009F084B /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -35,11 +56,32 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CF6EC1DD2E75C078001CD8D5 /* Scoreboards WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Scoreboards WidgetExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF6EC1DF2E75C078001CD8D5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		CF6EC1E12E75C078001CD8D5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		CFBB430C2D4EC37D009F084B /* Scoreboards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scoreboards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFBB43122D4EC37D009F084B /* Scoreboards Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Scoreboards Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CF6EC1F12E75C07A001CD8D5 /* Exceptions for "Scoreboards Widget" folder in "Scoreboards WidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CF6EC1DC2E75C078001CD8D5 /* Scoreboards WidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		CF6EC1E32E75C078001CD8D5 /* Scoreboards Widget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CF6EC1F12E75C07A001CD8D5 /* Exceptions for "Scoreboards Widget" folder in "Scoreboards WidgetExtension" target */,
+			);
+			path = "Scoreboards Widget";
+			sourceTree = "<group>";
+		};
 		CFBB43162D4EC37D009F084B /* Scoreboards Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Scoreboards Watch App";
@@ -48,6 +90,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CF6EC1DA2E75C078001CD8D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF6EC1E22E75C078001CD8D5 /* SwiftUI.framework in Frameworks */,
+				CF6EC1E02E75C078001CD8D5 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CFBB430F2D4EC37D009F084B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -58,10 +109,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF6EC1DE2E75C078001CD8D5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CF6EC1DF2E75C078001CD8D5 /* WidgetKit.framework */,
+				CF6EC1E12E75C078001CD8D5 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CFBB43052D4EC37D009F084B = {
 			isa = PBXGroup;
 			children = (
 				CFBB43162D4EC37D009F084B /* Scoreboards Watch App */,
+				CF6EC1E32E75C078001CD8D5 /* Scoreboards Widget */,
+				CF6EC1DE2E75C078001CD8D5 /* Frameworks */,
 				CFBB430D2D4EC37D009F084B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,6 +133,7 @@
 			children = (
 				CFBB430C2D4EC37D009F084B /* Scoreboards.app */,
 				CFBB43122D4EC37D009F084B /* Scoreboards Watch App.app */,
+				CF6EC1DD2E75C078001CD8D5 /* Scoreboards WidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,6 +141,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CF6EC1DC2E75C078001CD8D5 /* Scoreboards WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CF6EC1F22E75C07A001CD8D5 /* Build configuration list for PBXNativeTarget "Scoreboards WidgetExtension" */;
+			buildPhases = (
+				CF6EC1D92E75C078001CD8D5 /* Sources */,
+				CF6EC1DA2E75C078001CD8D5 /* Frameworks */,
+				CF6EC1DB2E75C078001CD8D5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CF6EC1E32E75C078001CD8D5 /* Scoreboards Widget */,
+			);
+			name = "Scoreboards WidgetExtension";
+			packageProductDependencies = (
+			);
+			productName = "Scoreboards WidgetExtension";
+			productReference = CF6EC1DD2E75C078001CD8D5 /* Scoreboards WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		CFBB430B2D4EC37D009F084B /* Scoreboards */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CFBB43262D4EC37F009F084B /* Build configuration list for PBXNativeTarget "Scoreboards" */;
@@ -104,10 +189,12 @@
 				CFBB430E2D4EC37D009F084B /* Sources */,
 				CFBB430F2D4EC37D009F084B /* Frameworks */,
 				CFBB43102D4EC37D009F084B /* Resources */,
+				CF6EC1EE2E75C07A001CD8D5 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CF6EC1EC2E75C07A001CD8D5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				CFBB43162D4EC37D009F084B /* Scoreboards Watch App */,
@@ -126,9 +213,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					CF6EC1DC2E75C078001CD8D5 = {
+						CreatedOnToolsVersion = 16.4;
+					};
 					CFBB430B2D4EC37D009F084B = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -153,11 +243,19 @@
 			targets = (
 				CFBB430B2D4EC37D009F084B /* Scoreboards */,
 				CFBB43112D4EC37D009F084B /* Scoreboards Watch App */,
+				CF6EC1DC2E75C078001CD8D5 /* Scoreboards WidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CF6EC1DB2E75C078001CD8D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CFBB430A2D4EC37D009F084B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -175,6 +273,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CF6EC1D92E75C078001CD8D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CFBB430E2D4EC37D009F084B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -185,6 +290,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CF6EC1EC2E75C07A001CD8D5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CF6EC1DC2E75C078001CD8D5 /* Scoreboards WidgetExtension */;
+			targetProxy = CF6EC1EB2E75C07A001CD8D5 /* PBXContainerItemProxy */;
+		};
 		CFBB43152D4EC37D009F084B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CFBB43112D4EC37D009F084B /* Scoreboards Watch App */;
@@ -193,6 +303,67 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		CF6EC1EF2E75C07A001CD8D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J2T5LM22RS;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Scoreboards Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Scoreboards Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.micheledg.Scoreboards.watchkitapp.Scoreboards-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.5;
+			};
+			name = Debug;
+		};
+		CF6EC1F02E75C07A001CD8D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J2T5LM22RS;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Scoreboards Widget/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Scoreboards Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.micheledg.Scoreboards.watchkitapp.Scoreboards-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.5;
+			};
+			name = Release;
+		};
 		CFBB43202D4EC37F009F084B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -402,6 +573,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CF6EC1F22E75C07A001CD8D5 /* Build configuration list for PBXNativeTarget "Scoreboards WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF6EC1EF2E75C07A001CD8D5 /* Debug */,
+				CF6EC1F02E75C07A001CD8D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CFBB43092D4EC37D009F084B /* Build configuration list for PBXProject "Scoreboards" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
