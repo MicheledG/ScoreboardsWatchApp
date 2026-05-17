@@ -19,19 +19,9 @@ A watchOS app for tracking scores between two teams, with watch face complicatio
 - Xcode 16.0 or later
 - watchOS 11.2 or later
 - Swift 5.0 or later
-- Apple Developer account with App Group capability registered (`group.com.micheledg.Scoreboards`)
+- Free Apple Developer account (no paid membership needed)
 
 ## Setup
-
-### App Group (required for widget + persistence)
-
-1. In the [Apple Developer portal](https://developer.apple.com), register the App Group ID: `group.com.micheledg.Scoreboards`
-2. Enable it for both bundle IDs:
-   - `com.micheledg.Scoreboards.watchkitapp` (Watch App)
-   - `com.micheledg.Scoreboards.watchkitapp.Scoreboards-Widget` (Widget)
-3. Xcode will pick up the entitlements files automatically on next build
-
-### Build & Run
 
 ```sh
 git clone https://github.com/MicheledG/ScoreboardsWatchApp.git
@@ -39,6 +29,8 @@ open Scoreboards.xcodeproj
 ```
 
 Select the **Scoreboards Watch App** scheme, choose a watch simulator or paired device, and run.
+
+> **Note:** Live scores in the watch face complication require an App Group (paid Apple Developer account). With a free account, the complication works as an app launcher only.
 
 ## Usage
 
@@ -54,13 +46,11 @@ Select the **Scoreboards Watch App** scheme, choose a watch simulator or paired 
 Scoreboards Watch App/
   ScoreboardsApp.swift      # App entry point
   ScoreboardsView.swift     # Main UI: TeamScoreView + reset
-  ScoreStore.swift          # Observable state + App Group persistence
-  ScoreboardsApp.entitlements
+  ScoreStore.swift          # Observable state + UserDefaults persistence
 
 Scoreboards Widget/
-  ScoreboardsWidget.swift        # Widget UI + timeline provider
+  ScoreboardsWidget.swift        # App launcher complication (circular + corner)
   ScoreboardsWidgetBundle.swift  # Widget bundle entry
-  Scoreboards_Widget.entitlements
 
 Scoreboards Watch App Tests/
   ScoreStoreTests.swift    # Unit tests for ScoreStore logic

@@ -1,5 +1,4 @@
 import SwiftUI
-import WidgetKit
 
 enum ScoringTeam: String, CaseIterable {
     case team1, team2
@@ -13,16 +12,14 @@ enum ScoringTeam: String, CaseIterable {
 }
 
 final class ScoreStore: ObservableObject {
-    static let appGroup = "group.com.micheledg.Scoreboards"
-
     private let defaults: UserDefaults
 
     @Published private(set) var scoreTeam1: Int
     @Published private(set) var scoreTeam2: Int
     @Published private(set) var lastScoringTeam: ScoringTeam?
 
-    init(suiteName: String = appGroup) {
-        defaults = UserDefaults(suiteName: suiteName) ?? .standard
+    init(suiteName: String? = nil) {
+        defaults = suiteName.flatMap { UserDefaults(suiteName: $0) } ?? .standard
         scoreTeam1 = defaults.integer(forKey: "scoreTeam1")
         scoreTeam2 = defaults.integer(forKey: "scoreTeam2")
         lastScoringTeam = defaults.string(forKey: "lastScoringTeam").flatMap(ScoringTeam.init(rawValue:))
@@ -61,6 +58,5 @@ final class ScoreStore: ObservableObject {
         } else {
             defaults.removeObject(forKey: "lastScoringTeam")
         }
-        WidgetCenter.shared.reloadAllTimelines()
     }
 }
