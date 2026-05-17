@@ -5,39 +5,58 @@ watchOS app + widget for tracking two-team scores.
 ## Tech Stack
 
 - Swift 5.0+, SwiftUI
-- watchOS 7.0+ deployment target
-- WidgetKit (complications)
+- watchOS 11.2+ deployment target
+- WidgetKit (complications: circular + corner)
+- App Group: `group.com.micheledg.Scoreboards` for cross-target UserDefaults
 - Xcode project (no SPM/CocoaPods)
 
 ## Project Structure
 
 ```
-Scoreboards Watch App/   # Main watchOS app
-  ScoreboardsApp.swift   # Entry point, deep link handler (scoreboards://open)
-  ScoreboardsView.swift  # Root view, TeamScoreView component
+Scoreboards Watch App/
+  ScoreboardsApp.swift         # App entry point
+  ScoreboardsView.swift        # Root view, TeamScoreView component
+  ScoreStore.swift             # Observable state + App Group persistence + WidgetKit reload
+  ScoreboardsApp.entitlements  # App Group capability
 
-Scoreboards Widget/      # WidgetKit extension
-  ScoreboardsWidget.swift        # Timeline provider, widget UI (circular + corner)
-  ScoreboardsWidgetBundle.swift  # Widget bundle entry
-  AppIntent.swift                # Placeholder, not yet implemented
+Scoreboards Widget/
+  ScoreboardsWidget.swift              # Timeline provider, widget UI (circular + corner)
+  ScoreboardsWidgetBundle.swift        # Widget bundle entry
+  Scoreboards_Widget.entitlements      # App Group capability
+
+Scoreboards Watch App Tests/
+  ScoreStoreTests.swift   # Unit tests (needs test target added in Xcode — see README)
 ```
 
 ## Architecture
 
-Two targets sharing no code module — widget reads no live data (static timeline). Widget taps deep-link to app via `scoreboards://open`, handled in `ScoreboardsApp.swift:15` `onOpenURL`.
+Two targets sharing state via **App Group UserDefaults** (`group.com.micheledg.Scoreboards`).
 
-State lives entirely in `ScoreboardsView`: `scoreTeam1`, `scoreTeam2`, `lastTeamScoring` — no persistence layer.
+`ScoreStore` (ObservableObject) owns all mutable state:
+- `scoreTeam1`, `scoreTeam2`, `lastScoringTeam: ScoringTeam?`
+- Persists to App Group defaults on every mutation
+- Calls `WidgetCenter.shared.reloadAllTimelines()` after every change
 
-## Key Behaviors
+Widget reads from the same App Group defaults in `Provider`. Timeline policy is `.never` — the app drives reloads via `WidgetCenter`.
 
-- Score increment/decrement via `Stepper` in `TeamScoreView`
-- Last scoring team highlighted green (`lastTeamScoring` state)
-- Reset: 1.5s long press
-- Widget: two complication styles (circular, corner), static, taps open app
+## Bundle IDs
 
-## No Tests
+- Watch App: `com.micheledg.Scoreboards.watchkitapp`
+- Widget: `com.micheledg.Scoreboards.watchkitapp.Scoreboards-Widget`
+- Container: `com.micheledg.Scoreboards`
+- Team ID: `J2T5LM22RS`
 
-No test targets exist.
+## Key Types
+
+- `ScoringTeam: String, CaseIterable` enum — `team1`, `team2`
+- `ScoreStore: ObservableObject` — `scorePoint(for:)`, `removePoint(for:)`, `reset()`
+- `ScoreStore(suiteName:)` — testable initializer, defaults to production App Group
+
+## Important Notes
+
+- App Group must be registered in Apple Developer portal before building for device
+- Tests need a Xcode Unit Testing Bundle target (see README for steps)
+- Icon generated programmatically via `/tmp/gen_icon.swift` Swift script
 
 ## Build
 
