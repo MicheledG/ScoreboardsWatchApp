@@ -2,35 +2,46 @@
 //  ScoreboardsWidget.swift
 //  Scoreboards Widget
 //
-//  Created by Michele Di Girolamo on 13/09/25.
-//
 
 import WidgetKit
 import SwiftUI
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date())
+    private let appGroup = "group.com.micheledg.Scoreboards"
+
+    private func currentEntry() -> ScoreEntry {
+        let defaults = UserDefaults(suiteName: appGroup) ?? .standard
+        return ScoreEntry(
+            date: Date(),
+            scoreTeam1: defaults.integer(forKey: "scoreTeam1"),
+            scoreTeam2: defaults.integer(forKey: "scoreTeam2"),
+            lastScoringTeam: defaults.string(forKey: "lastScoringTeam")
+        )
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date())
-        completion(entry)
+    func placeholder(in context: Context) -> ScoreEntry {
+        ScoreEntry(date: Date(), scoreTeam1: 3, scoreTeam2: 1, lastScoringTeam: "team1")
     }
-    
-    func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
-        let entry = SimpleEntry(date: Date())
-        // Static timeline since this is just an app launcher
-        let timeline = Timeline(entries: [entry], policy: .never)
+
+    func getSnapshot(in context: Context, completion: @escaping (ScoreEntry) -> ()) {
+        completion(context.isPreview ? placeholder(in: context) : currentEntry())
+    }
+
+    func getTimeline(in context: Context, completion: @escaping (Timeline<ScoreEntry>) -> ()) {
+        // App calls WidgetCenter.reloadAllTimelines() on every score change — .never is correct
+        let timeline = Timeline(entries: [currentEntry()], policy: .never)
         completion(timeline)
     }
 }
 
-struct SimpleEntry: TimelineEntry {
+struct ScoreEntry: TimelineEntry {
     let date: Date
+    let scoreTeam1: Int
+    let scoreTeam2: Int
+    let lastScoringTeam: String?
 }
 
-struct ScoreboardsWidgetEntryView : View {
+struct ScoreboardsWidgetEntryView: View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) var family
 
@@ -38,30 +49,42 @@ struct ScoreboardsWidgetEntryView : View {
         ZStack {
             switch family {
             case .accessoryCircular:
-                // Circular complication - 110px source image
-                Image("app-icon")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 32, height: 32)
-                    .clipShape(Circle())
-                    
+                circularView
             case .accessoryCorner:
-                // Corner complication - 80px source image
-                Image("app-icon-small")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 20, height: 20)
-                    .clipShape(RoundedRectangle(cornerRadius: 4))
-                    
+                cornerView
             default:
-                // Not supported - show nothing or minimal fallback
                 EmptyView()
             }
         }
         .widgetURL(URL(string: "scoreboards://open"))
-        .containerBackground(for: .widget) {
-            Color.clear
+        .containerBackground(for: .widget) { Color.clear }
+    }
+
+    private var circularView: some View {
+        VStack(spacing: 0) {
+            scoreText(entry.scoreTeam1, team: "team1")
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(.secondary.opacity(0.5))
+                .padding(.horizontal, 4)
+            scoreText(entry.scoreTeam2, team: "team2")
         }
+    }
+
+    private var cornerView: some View {
+        Image("app-icon")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 20, height: 20)
+            .clipShape(RoundedRectangle(cornerRadius: 4))
+            .widgetLabel("\(entry.scoreTeam1) – \(entry.scoreTeam2)")
+    }
+
+    private func scoreText(_ score: Int, team: String) -> some View {
+        Text("\(score)")
+            .font(.system(.title3, design: .rounded, weight: .bold))
+            .foregroundColor(entry.lastScoringTeam == team ? .green : .primary)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -73,7 +96,7 @@ struct ScoreboardsWidget: Widget {
             ScoreboardsWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Scoreboards")
-        .description("Quick access to your Scoreboards app")
+        .description("Live score tracker for two teams")
         .supportedFamilies([.accessoryCircular, .accessoryCorner])
     }
 }
@@ -81,11 +104,11 @@ struct ScoreboardsWidget: Widget {
 #Preview("Circular", as: .accessoryCircular) {
     ScoreboardsWidget()
 } timeline: {
-    SimpleEntry(date: Date())
+    ScoreEntry(date: Date(), scoreTeam1: 3, scoreTeam2: 1, lastScoringTeam: "team1")
 }
 
 #Preview("Corner", as: .accessoryCorner) {
     ScoreboardsWidget()
 } timeline: {
-    SimpleEntry(date: Date())
+    ScoreEntry(date: Date(), scoreTeam1: 3, scoreTeam2: 1, lastScoringTeam: "team1")
 }

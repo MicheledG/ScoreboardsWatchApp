@@ -2,51 +2,80 @@
 
 ![Demo](docs/demo.gif)
 
-Scoreboards Watch App is a simple watchOS application that allows users to keep track of scores for two teams. The app provides an intuitive interface to increment and decrement scores and reset them when needed.
+A watchOS app for tracking scores between two teams, with watch face complications that show live scores at a glance.
 
 ## Features
 
-- Track scores for two teams
-- Highlight the last team that scored
-- Reset scores with a long press
+- Track scores for two teams with increment/decrement steppers
+- Highlight the last team that scored (green tint)
+- Scores floor at 0 — no negative values
+- Reset scores with a 1.5s long press
+- **Scores persist** across app restarts via shared App Group UserDefaults
+- **Watch face complications** (circular + corner) showing live scores
+- Complications update instantly when scores change
 
 ## Requirements
 
-- Xcode 12.0 or later
-- watchOS 7.0 or later
+- Xcode 16.0 or later
+- watchOS 11.2 or later
 - Swift 5.0 or later
+- Apple Developer account with App Group capability registered (`group.com.micheledg.Scoreboards`)
 
-## Installation
+## Setup
 
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/scoreboards-watch-app.git
-   ```
-2. Open the project in Xcode:
-   ```sh
-   open Scoreboards.xcodeproj
-   ```
-3. Build and run the app on your watchOS simulator or device.
+### App Group (required for widget + persistence)
+
+1. In the [Apple Developer portal](https://developer.apple.com), register the App Group ID: `group.com.micheledg.Scoreboards`
+2. Enable it for both bundle IDs:
+   - `com.micheledg.Scoreboards.watchkitapp` (Watch App)
+   - `com.micheledg.Scoreboards.watchkitapp.Scoreboards-Widget` (Widget)
+3. Xcode will pick up the entitlements files automatically on next build
+
+### Build & Run
+
+```sh
+git clone https://github.com/MicheledG/ScoreboardsWatchApp.git
+open Scoreboards.xcodeproj
+```
+
+Select the **Scoreboards Watch App** scheme, choose a watch simulator or paired device, and run.
 
 ## Usage
 
-1. Open the app on your Apple Watch.
-2. Use the steppers to increment or decrement the scores for Team 1 and Team 2.
-3. The last team that scored will be highlighted.
-4. Long press the "Reset" button to reset both scores to 0.
+1. Open the app on your Apple Watch
+2. Tap **+** / **−** on each stepper to change team scores
+3. The last team that scored is highlighted in green
+4. Long press **Reset** (1.5s) to clear both scores
+5. Add the **Scoreboards** complication to your watch face to see scores at a glance — tap to open the app
 
 ## Project Structure
 
-- `Scoreboards Watch App/`: Contains the main app source code and assets.
-  - `Assets.xcassets/`: Contains the app's assets including the app icon and accent color.
-  - `ScoreboardsApp.swift`: The main entry point of the app.
-  - `ScoreboardsView.swift`: The main view of the app.
-- `Scoreboards.xcodeproj/`: Xcode project files.
+```
+Scoreboards Watch App/
+  ScoreboardsApp.swift      # App entry point
+  ScoreboardsView.swift     # Main UI: TeamScoreView + reset
+  ScoreStore.swift          # Observable state + App Group persistence
+  ScoreboardsApp.entitlements
 
-## Contributing
+Scoreboards Widget/
+  ScoreboardsWidget.swift        # Widget UI + timeline provider
+  ScoreboardsWidgetBundle.swift  # Widget bundle entry
+  Scoreboards_Widget.entitlements
 
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+Scoreboards Watch App Tests/
+  ScoreStoreTests.swift    # Unit tests for ScoreStore logic
+```
+
+## Adding Unit Tests
+
+The test file is included but needs a test target in Xcode:
+
+1. **File > New > Target > watchOS > Unit Testing Bundle**
+2. Name it `Scoreboards Watch App Tests`
+3. Set the host application to `Scoreboards Watch App`
+4. Add `Scoreboards Watch App Tests/` as a file system synchronized group
+5. Run tests with `Cmd+U`
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+MIT — see [LICENSE](LICENSE)
